@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      
+    <modelVersion>4.0.0</modelVersion>      
+    <groupId>com.wakamayu.jucu</groupId>      
+    <artifactId>gps-tracker-api</artifactId>      
+    <version>0.0.1</version>      
+    <packaging>pom</packaging>
+    
+    <modules>            
+        <module>gps-tracker-api-model</module>            
+        <module>gps-tracker-api-dao</module>            
+        <module>gps-tracker-api-service</module>          
+        <module>gps-tracker-api-resource</module>      
+    </modules>
+      
+    <properties>
+        <maven.compiler.target>8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <maven.compiler.source>8</maven.compiler.source>
+        <payaraVersion>5.2021.1</payaraVersion>
+        <final.name>gps-tracker-api</final.name>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.7.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>8.0.1</version>
+            <type>jar</type>
+        </dependency>
+
+    </dependencies>
+  
+</project>
