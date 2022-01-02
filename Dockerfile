@@ -7,25 +7,23 @@ WORKDIR /var/www/app
 COPY . .
 
 RUN  mkdir -p ./lib && mkdir -p build
-RUN mkdir -p  build &&  mvn clean install && cp ./**/target/*.jar build/ && ls build
+RUN mkdir -p  build &&  mvn clean install && cp ./**/target/*.war build/ && ls build
 
-FROM openjdk:18-ea-11-jdk-alpine3.15
-
-WORKDIR app
+FROM payara/micro:5.2021.9-jdk11
 
 USER root
 
 RUN ln -fs /usr/share/zoneinfo/America/Guatemala /etc/localtime
 VOLUME /etc/localtime:/etc/localtime:ro
 
-COPY  --from=BUILD_MAVEN  /var/www/app/build/* app/.
+USER payara
 
-RUN ls -la app/*
-
-COPY  --from=BUILD_MAVEN  /var/www/app/domain.xml app/domain.xml
+COPY --chown=payara:payara --from=BUILD_MAVEN  /var/www/app/build ${PAYARA_HOME}/deployments
+COPY --chown=payara:payara --from=BUILD_MAVEN  /var/www/app/lib ${PAYARA_HOME}/lib
+COPY --chown=payara:payara --from=BUILD_MAVEN  /var/www/app/domain.xml ${PAYARA_HOME}
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-XX:MaxRAMFraction=1", "-jar", "gps-tracker-api-resource-0.0.1-microbundle.jar"]
+ENTRYPOINT ["java", "-jar", "payara-micro.jar"]
 
-CMD ["--domainconfig","/app/domain.xml" ]
+CMD ["--deploymentDir", "/opt/payara/deployments" , "--domainconfig","/opt/payara/domain.xml" , "--addlibs", "/opt/payara/lib"]
