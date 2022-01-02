@@ -8,7 +8,7 @@ metadata:
   labels:
     chart: gps-tracker-api
   name: gps-tracker-api
-  namespace: frontend
+  namespace: backend
 spec:
   rules:
   - host: gps.tracker.wpa
